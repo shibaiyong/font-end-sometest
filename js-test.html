@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		
+		
+	</head>
+	<body>
+		 
+	</body>
+</html>
+<script>
+	/*	
+	function Myobj(){
+		this.p.pid++
+	}
+	Myobj.prototype.p={'pid':0}
+	Myobj.prototype.getNum=function(num){
+		return this.p.pid+num
+	}
+	var obj1=new Myobj()
+	var obj2=new Myobj()
+	console.log(obj1.getNum(1)+obj2.getNum(2))
+	*/
+	/*
+	var func=(function(a){
+		console.log(this)
+		this.a=a;
+		return function(a){
+			console.log(this)
+			a+=this.a
+			return a;
+		}
+	})(function(a,b){
+		return a;
+	}(1,2));
+	
+	console.log(func(4))
+	*/
+	
+	/*
+	var func=(function(a){
+		console.log(this)//window
+		this.a=a;
+		return function(a){
+			console.log(this)//window
+			a+=this.a
+			return a;
+		}
+	})(1);
+	*/
+	
+	/*
+	func=function(a){
+			console.log(this)
+			a+=this.a
+			return a;
+		}
+	*/
+	//console.log(func)
+	/*
+	var m=12
+//	function add(n){
+//		console.log('first')
+//		return n=n+1;
+//	}
+	y=add(m);
+	function add(n,m){
+		console.log('second')
+		return m=n+3;
+	}
+	
+	z=add(m)
+	console.log(y,z)
+	*/
+	/*
+	(function(){
+		var a=b=12;
+		console.log(a,b)
+	})()
+	*/
+	/*
+	var obj={
+		d:'obj_d',
+		b:{
+			d:'obj_b_d',
+			c:function(){
+				return this.d;
+			}
+		}
+	}
+	var test=obj.b.c
+	console.log(test())//undefined
+	var test1=obj.b.c()
+	console.log(test1)//undefined
+	console.log(obj.b.c.call(obj))//obj_d
+	*/
+	//this指向问题。
+	/*
+	function fn()  
+	{  
+	    this.user = '追梦子';  
+	    return {};
+	}
+	var a = new fn();  
+	console.log(a.user); //追梦子
+	*/
+	
+	
+</script>

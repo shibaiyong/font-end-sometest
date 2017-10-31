@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=320,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>Document</title>
+	<style>
+		.top{
+			width:100%;
+			background: red;
+			height: 40px;
+		}
+		.top span{
+			margin-left: 40px;
+		}
+		.shi-select{
+			width: 200px;
+			margin: 0 auto;
+		}
+		.shi-select .shi-select-input{
+			outline: none;
+			width: 100%;
+			box-sizing: border-box;
+		}
+		*{
+			margin: 0;padding: 0;
+		}
+		.shi-select ul{
+			box-sizing: border-box;
+			width:100%;
+			border-left: 1px solid #ccc;
+			border-right: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+			display: none;
+		}
+		.shi-select ul li{
+			list-style: none;
+			padding: 5px 0px;
+			font-size: 14px;
+		}
+		.shi-select ul li:hover{
+			background: #00a1e9;
+		}
+		
+	</style>
+</head>
+<body>
+	<div class="top"><span>宽度是320px</span></div>
+	<div class="shi-select">
+		<input type="text" class="shi-select-input" placeholder="选择全部"/>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+</body>
+</html>
+<script src="jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).on('click','.shi-select-input',function(){
+		$(this).next().show();
+	})
+	$(document).on('click','.shi-select ul li',function(){
+		var content=$(this).text();
+		$(this).parent().prev().val(content);
+		$(this).parent().hide();
+	})
+</script>
