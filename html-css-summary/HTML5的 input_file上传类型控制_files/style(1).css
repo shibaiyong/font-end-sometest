@@ -1,0 +1,36 @@
+* {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+
+ul {
+	margin: 10px 0 0;
+}
+
+ul li {
+	list-style: none;
+	border-bottom: 1px #ddd dotted;
+}
+
+ul li a {
+	color: #3d4950;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 20px 20px;
+	display: block;
+	width: 260px;
+	text-decoration: none;
+	font-size: 15px;
+}
+
+.tag {
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 999;
+	font-size: 12px;
+	background: #EEE;
+	width: 25px;
+}

@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0037)http://www.uw3c.com/jsviews/js15.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>jQuery中ready与load事件的区别</title>
+    <meta name="description" content="大家在面试的过程中，经常会被问到一个问题：ready与load那一个先执行，那一个后执行？这两个有什么区别？今天我们来探索一下。">
+    <meta name="keywords" content="JavaScript代码分享，JavaScript经验总结">
+    <link rel="Shortcut Icon" href="http://www.uw3c.com/images/index/uw3c_ico.ico">
+        <!--<link type="text/css" href="../css/bigcss.css" rel="stylesheet">-->
+    <script src="./jQuery中ready与load事件的区别_files/push.js.下载"></script><script language="javascript" type="text/javascript" src="./jQuery中ready与load事件的区别_files/jquery-1.4.2.min.js.下载"></script>
+    <script type="text/javascript" src="./jQuery中ready与load事件的区别_files/shCore.js.下载"></script>
+    <script type="text/javascript" src="./jQuery中ready与load事件的区别_files/shBrushJScript.js.下载"></script>
+    <script language="javascript" type="text/javascript">
+        var screen_width = document.documentElement.clientWidth > 1200 ? true : false ;
+        //screen_wide = false;
+        (function(){
+            var head = document.getElementsByTagName('HEAD')[0];
+            var style = document.createElement('link');
+            if(screen_width){
+                style.href ='../css/bigcss.css';
+            }else{
+                style.href ='../css/css.css';
+            }
+            style.rel = 'stylesheet';
+            style.type = 'text/css';head.appendChild(style);
+        })()
+
+    </script><link href="./jQuery中ready与load事件的区别_files/bigcss.css" rel="stylesheet" type="text/css">
+    <link type="text/css" href="./jQuery中ready与load事件的区别_files/backtop.css" rel="stylesheet">
+<link href="./jQuery中ready与load事件的区别_files/bigshCoreDefault.css" rel="stylesheet" type="text/css"><script src="./jQuery中ready与load事件的区别_files/logger.js.下载"></script><link href="./jQuery中ready与load事件的区别_files/bdsstyle.css" rel="stylesheet" type="text/css"></head>
+<body><iframe frameborder="0" style="display: none;" src="./jQuery中ready与load事件的区别_files/saved_resource.html"></iframe><div id="bdshare_s" style="display: block;"><iframe id="bdsIfr" style="position:absolute;display:none;z-index:9999;" frameborder="0" src="./jQuery中ready与load事件的区别_files/saved_resource(1).html"></iframe><div id="bdshare_l" style="display: none;"><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_mshare mshare">一键分享</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_bdysc bdysc">百度云收藏</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_renren rrw">人人网</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_bdxc bdxc">百度相册</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_douban db">豆瓣网</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_bdhome bdhome">百度新首页</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_sqq sqq">QQ好友</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_thx thx">和讯微博</a></li><li><a href="http://www.uw3c.com/jsviews/js15.html#" class="bds_more">更多...</a></li></ul><p><a href="http://www.uw3c.com/jsviews/js15.html#" class="goWebsite">百度分享</a></p></div></div></div>
+    <div id="container">
+        <div id="topbar">
+            <div class="barwrap">
+                <a href="http://www.uw3c.com/help.html#use" target="_blank">使用条款</a>
+                <a href="http://www.uw3c.com/help.html#disclaimer" target="_blank">免责声明</a>
+                <a href="http://www.uw3c.com/help.html#contact" target="_blank">联系本站</a>
+                <a href="javascript:void(0)" class="collection">收藏本站</a>
+                <a href="http://www.uw3c.com/help.html#attention" target="_blank">关注本站</a>
+                <a href="http://www.uw3c.com/help.html#money" target="_blank" style="color:#E4D7B6;">收入分成</a>
+                <a href="http://www.uw3c.com/help.html#mail" target="_blank" style="color:#E4D7B6;">投稿本站</a>
+            </div>
+        </div>
+        <div id="header">
+            <div class="logo"><h2><img src="./jQuery中ready与load事件的区别_files/js_logo.jpg" alt="uw3c" title="uw3c" border="0"></h2></div>
+            <!--<div class="advertising"></div>-->
+            <div id="syshare">
+                <div class="logowrap">
+                    <a href="http://www.uw3c.com/help.html" target="_blank">
+                        <img src="./jQuery中ready与load事件的区别_files/bz.jpg" alt="使用帮助" border="0">
+                        <span>使用帮助</span>
+                    </a>
+                </div>
+                <div class="logowrap">
+                    <a href="javascript:void(0)" class="collection">
+                        <img src="./jQuery中ready与load事件的区别_files/sc.jpg" alt="收藏本站" border="0">
+                        <span>收藏本站</span>
+                    </a>
+                </div>
+                <div class="logowrap">
+                    <a href="http://weibo.com/uw3c" target="_blank">
+                        <img src="./jQuery中ready与load事件的区别_files/wb.jpg" alt="关注本站" border="0">
+                        <span>关注本站</span>
+                    </a>
+                </div>
+                <div class="logowrap">
+                    <a href="http://www.uw3c.com/help.html#money" target="_blank">
+                        <img src="./jQuery中ready与load事件的区别_files/fc.jpg" alt="收入分成" border="0">
+                        <span>收入分成</span>
+                    </a>
+                </div>
+                <div class="logowrap">
+                    <a href="http://www.uw3c.com/help.html#mail" target="_blank">
+                        <img src="./jQuery中ready与load事件的区别_files/tg.jpg" alt="投稿本站" border="0">
+                        <span>投稿本站</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="indexwrap">
+            <div class="index">
+                <a href="http://www.uw3c.com/" target="_blank">UW3C首页</a>
+                <a href="http://www.uw3c.com/css.html" target="_blank" id="titcss">CSS</a>
+                <a href="http://www.uw3c.com/js.html" target="_blank" id="titjs" class="sel">JavaScript</a>
+                <a href="http://www.uw3c.com/swift.html" target="_blank" id="titswift">Swift</a>
+<!--                <a href="http://www.uw3c.com/java.html" target="_blank" id="titjava">Java</a>-->
+                <a href="http://www.uw3c.com/php.html" target="_blank" id="titphp">PHP</a>
+                <a href="http://www.uw3c.com/seo.html" target="_blank" id="titseo">SEO</a>
+                <a href="http://www.uw3c.com/build.html" target="_blank" id="titbuild">建站经验总结</a>
+                <a href="http://www.uw3c.com/security.html" target="_blank" id="titsecurity">网站安全</a>
+                <!--<a href="http://www.uw3c.com/free.html" target="_blank" id="titfree">轻松一下</a>-->
+              <a href="http://www.uw3c.com/help.html" target="_blank" id="tithelp">使用帮助</a>
+              <!--<a href="http://www.uw3c.com/ashamed.html" target="_blank">程序糗事</a>-->
+            </div>
+        </div>
+<div id="body">
+    <!--<div class="breadcrumbs">-->
+<!--    <a href="#" target="_blank">UW3C首页</a> > <a href="#" target="_blank">CSS</a> > <a href="#" target="_blank">兼容性</a>-->
+<!--</div>-->
+<div class="breadcrumbs">
+    <a href="http://www.uw3c.com/" target="_blank">UW3C首页</a> &gt;
+    <a href="http://www.uw3c.com/js.html" target="_blank">JS</a> &gt;
+    <span>jQuery中ready与load事件的区别</span>
+</div>    <div class="bodywrap">
+        <div id="typeleft">
+    <div class="tit">广告位</div>
+    <div class="list topcode" style="overflow: hidden;">
+        <script type="text/javascript">
+            var sogou_ad_id=844741;
+            var sogou_ad_height=250;
+            var sogou_ad_width=250;
+        </script>
+        <script type="text/javascript" src="./jQuery中ready与load事件的区别_files/c.js.下载"></script><script src="./jQuery中ready与load事件的区别_files/ask"></script><div style="display:none">-</div> <div id="starIframe_wrapper_1" style="height:250px;"><iframe id="starIframe1" onload="document.sogou_ads1_loaded=true;" src="./jQuery中ready与load事件的区别_files/ct.html" width="250" height="250" align="center,center" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" allowtransparency="true"></iframe></div><script type="text/javascript" charset="utf-8" src="./jQuery中ready与load事件的区别_files/ask_service"></script>
+    </div>
+    <div class="tit">最近更新</div>
+    <div class="list topcode">
+        <div class="change" id="sidecode">
+            <a class="sel" selname="codewrap">代码</a>
+            <a selname="buildwrap">建站</a>
+            <a selname="gamewrap">电竞</a>
+        </div>
+        <div id="codewrap" class="codewrap"><ul><li><a href="http://www.uw3c.com/css.html" target="_blank">CSS文章(33)</a></li><li class="word"><span>1</span><a href="http://www.uw3c.com/cssviews/css33.html" target="_blank">如何用CSS制作闪烁的箭头</a></li><li class="word"><span>2</span><a href="http://www.uw3c.com/cssviews/css32.html" target="_blank">在IE8及以下版本不显示图片的原因</a></li><li class="word"><span>3</span><a href="http://www.uw3c.com/cssviews/css31.html" target="_blank">CSS的Flex</a></li></ul><ul><li><a href="http://www.uw3c.com/js.html" target="_blank">JavaScript文章(110)</a></li><li class="word"><span>1</span><a href="http://www.uw3c.com/jsviews/js109.html" target="_blank">gulp与Grunt的区别</a></li><li class="word"><span>2</span><a href="http://www.uw3c.com/jsviews/js108.html" target="_blank">iNotify.js点击消息框当前页面跳转</a></li><li class="word"><span>3</span><a href="http://www.uw3c.com/jsviews/js107.html" target="_blank">如何在当前页面下载图片</a></li></ul><ul><li><a href="http://www.uw3c.com/php.html" target="_blank">PHP文章(13)</a></li><li class="word"><span>1</span><a href="http://www.uw3c.com/phpviews/php13.html" target="_blank">SQL中的TOP子句</a></li><li class="word"><span>2</span><a href="http://www.uw3c.com/phpviews/php12.html" target="_blank">SQL中的LIKE操作符</a></li><li class="word"><span>3</span><a href="http://www.uw3c.com/phpviews/php11.html" target="_blank">获取PHP版本信息</a></li></ul></div><div id="buildwrap" style="display: none;" class="codewrap"><ul><li><a href="http://www.uw3c.com/seo.html" target="_blank">SEO文章(28)</a></li><li class="word"><span>1</span><a href="http://www.uw3c.com/seoviews/seo28.html" target="_blank">应该如何交换链接</a></li><li class="word"><span>2</span><a href="http://www.uw3c.com/seoviews/seo27.html" target="_blank">网站为什么会被降权</a></li><li class="word"><span>3</span><a href="http://www.uw3c.com/seoviews/seo26.html" target="_blank">网站被降权了怎么办</a></li></ul><ul><li><a href="http://www.uw3c.com/build.html" target="_blank">建站文章(11)</a></li><li class="word"><span>1</span><a href="http://www.uw3c.com/buildviews/build11.html" target="_blank">如何找到并且配置hosts</a></li><li class="word"><span>2</span><a href="http://www.uw3c.com/buildviews/build10.html" target="_blank">F5与Ctrl+F5的区别</a></li><li class="word"><span>3</span><a href="http://www.uw3c.com/buildviews/build09.html" target="_blank">什么是网页缓存</a></li></ul><ul><li><a href="http://www.uw3c.com/security.html" target="_blank">网站安全(8)</a></li><li class="word"><span>1</span><a href="http://www.uw3c.com/securityviews/security08.html" target="_blank">怎么就算跨域了</a></li><li class="word"><span>2</span><a href="http://www.uw3c.com/securityviews/security07.html" target="_blank">什么是MD5</a></li><li class="word"><span>3</span><a href="http://www.uw3c.com/securityviews/security06.html" target="_blank">为什么要用HTML实体</a></li></ul></div><div id="gamewrap" style="display: none;" class="codewrap"><ul><li><a>轻松一下(44)</a></li><li class="word"><span>1</span><a href="http://www.uw3c.com/activity/act20151214.html" target="_blank">《极盗者》电子兑换券</a></li><li class="word"><span>2</span><a href="http://www.uw3c.com/jsviews/js54.html" target="_blank">前端 面试总结</a></li><li class="word"><span>3</span><a href="http://www.uw3c.com/jsviews/js44.html" target="_blank">前端 面试总结1</a></li><li class="word"><span>4</span><a href="http://www.uw3c.com/jsviews/js47.html" target="_blank">前端 面试总结2</a></li><li class="word"><span>5</span><a href="http://anime.52pk.com/donghua/op/6-624.shtml" target="_blank">动画 624集：G5毁灭多弗朗明哥急袭</a></li><li class="word"><span>6</span><a href="http://www.7330.com/op/1023434.shtml" target="_blank">漫画 731话：德雷斯罗萨SOP作战</a></li><li class="word"><span>7</span><a href="http://www.tudou.com/albumplay/_nJJMEa6O6I.html" target="_blank">动画 第二季 第10集：是信赖</a></li><li class="word"><span>8</span><a href="http://www.imanhua.com/comic/1067/list_91970.html" target="_blank">漫画 241话：好不甘心啊</a></li><li class="word"><span>9</span><a href="http://www.tudou.com/albumplay/Lqfme5hSolM/Sjg3ZwGOE0U.html" target="_blank">动漫 561集：复活！！大蛇丸</a></li><li class="word"><span>10</span><a href="http://www.7330.com/narutocn/1023030.shtml" target="_blank">漫画 657话：宇智波斑，入阵</a></li></ul></div>    </div>
+    <div class="tit" style="margin-top: 10px;">阅读排行</div>
+    <div class="list bankwrap">
+        <div class="change" id="bankcode">
+            <a class="sel" selname="week">本周</a>
+            <a selname="mouth">本月</a>
+            <a selname="all">历史</a>
+        </div>
+        <div id="week" class="codewrap"><ul><li class="bank"><a href="http://www.uw3c.com/jsviews/js02.html" target="_blank"><span>1</span>&nbsp;[JS]移动端滚动插件iScroll</a></li><li class="bank"><a href="http://www.uw3c.com/cssviews/css09.html" target="_blank"><span>2</span>&nbsp;[CSS]如何让textarea不可拖拽</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js96.html" target="_blank"><span>3</span>&nbsp;[JS]history.back(-1)和history.go(-1)的区别</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js17.html" target="_blank"><span>4</span>&nbsp;[JS]JS获取长度方法总结</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js18.html" target="_blank"><span>5</span>&nbsp;[JS]移动端获取屏幕宽度</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html" target="_blank"><span>6</span>&nbsp;[JS]jQuery中ready与load事件的区别</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js66.html" target="_blank"><span>7</span>&nbsp;[JS]JS中document.body上的操作</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js21.html" target="_blank"><span>8</span>&nbsp;[JS]如何获取URL后面锚点ID</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js29.html" target="_blank"><span>9</span>&nbsp;[JS]应该把script标签放在哪里</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js12.html" target="_blank"><span>10</span>&nbsp;[JS]关于JS的prototype</a></li></ul></div><div id="mouth" class="codewrap" style="display: none;"><ul><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>1</span>&nbsp;[JS]移动端滚动插件iScroll</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>2</span>&nbsp;[CSS]如何让textarea不可拖拽</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>3</span>&nbsp;[JS]history.back(-1)和history.go(-1)的区别</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>4</span>&nbsp;[JS]JS获取长度方法总结</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>5</span>&nbsp;[JS]jQuery中ready与load事件的区别</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>6</span>&nbsp;[JS]移动端获取屏幕宽度</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>7</span>&nbsp;[JS]JS中document.body上的操作</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>8</span>&nbsp;[JS]JS图片加载失败用默认图片代替</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>9</span>&nbsp;[JS]如何获取URL后面锚点ID</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>10</span>&nbsp;[CSS]移动端拨打电话的简单方法</a></li></ul></div><div id="all" class="codewrap" style="display: none;"><ul><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>1</span>&nbsp;[CSS]如何让textarea不可拖拽</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>2</span>&nbsp;[JS]移动端滚动插件iScroll</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>3</span>&nbsp;[JS]移动端获取屏幕宽度</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>4</span>&nbsp;[JS]JS获取长度方法总结</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>5</span>&nbsp;[JS]jQuery中ready与load事件的区别</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>6</span>&nbsp;[JS]关于JS的prototype</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>7</span>&nbsp;[CSS]href="#"与javascript：void（0）的区别</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>8</span>&nbsp;[JS]如何获取URL后面锚点ID</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>9</span>&nbsp;[JS]应该把script标签放在哪里</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js15.html#" target="_blank"><span>10</span>&nbsp;[JS]JS验证身份证号码是否合法</a></li></ul></div>    </div>
+    
+        <div class="tit">读过本文章的之前读了</div>
+        <div class="list">
+            <div class="codewrap"><ul><li class="bank"><a href="http://www.uw3c.com/jsviews/js16.html" target="_blank"><span>1</span>&nbsp;[JS]应该把script标签放在哪里</a></li><li class="bank"><a href="http://www.uw3c.com/jsviews/js16.html" target="_blank"><span>2</span>&nbsp;[JS]chrome不能获取图片高度</a></li>
+            </ul></div>
+        </div>        <div class="tit" style="background:#95B4F9;">关注本站</div>
+    <div class="list">
+        <ul>
+            <li>
+                <div class="erweima">
+                    <a class="erweima" href="http://www.uw3c.com/help.html#attention" target="_blank"><img src="./jQuery中ready与load事件的区别_files/erweima.jpg" alt="加我微信" title="加我微信" border="0"></a>
+                </div>
+                <div class="share">
+                    <a href="http://weibo.com/uw3c" target="_blank"><img src="./jQuery中ready与load事件的区别_files/header_sina.jpg" alt="关注本站" title="关注本站" border="0"><span>关注本站</span></a>
+                    <a href="http://www.uw3c.com/help.html#mail" target="_blank"><img src="./jQuery中ready与load事件的区别_files/header_mail.jpg" alt="投稿本站" title="投稿本站" border="0"><span>投稿本站</span></a>
+                    <a href="javascript:void(0)" class="collection"><img src="./jQuery中ready与load事件的区别_files/header_collection.jpg" alt="收藏本站" title="收藏本站" border="0"><span>收藏本站</span></a>
+                    <a href="http://www.uw3c.com/help.html" target="_blank"><img src="./jQuery中ready与load事件的区别_files/header_set.jpg" alt="使用帮助" title="使用帮助" border="0"><span>使用帮助</span></a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+    $("#sidecode a,#bankcode a").click(function(){
+        $(this).addClass("sel").siblings("a").removeClass();
+        var showId = $(this).attr("selname");
+        $(this).parent(".change").siblings(".codewrap").hide();
+        $("#"+showId).show();
+    })
+})
+</script>        <div id="typeright">
+            <div class="titwrap" style="margin-top: 5px;">
+                <script type="text/javascript">
+                    var sogou_ad_id=844742;
+                    var sogou_ad_height=90;
+                    var sogou_ad_width=728;
+                </script>
+                <script type="text/javascript" src="./jQuery中ready与load事件的区别_files/c.js.下载"></script><script src="./jQuery中ready与load事件的区别_files/ask(1)"></script><div style="display:none">-</div> <div id="starIframe_wrapper_2" style="height:90px;"><iframe id="starIframe2" onload="document.sogou_ads2_loaded=true;" src="./jQuery中ready与load事件的区别_files/ct(1).html" width="728" height="90" align="center,center" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" allowtransparency="true"></iframe></div>
+            </div>
+<!--            <div class="sharewrap">-->
+<!--                <div class="leftpart" style="border-top:none; border-left:none;" >-->
+<!--                    <span style="float:left;line-height: 25px;">将本篇文章分享到：</span>-->
+<!--                    --><!--                </div>-->
+<!--                <div class="rightpart">-->
+<!--                    <a href="http://www.uw3c.com/help.html#mail" target="_blank" style="color:#AE6969;">投稿本站</a>-->
+<!--                    <a href="http://www.uw3c.com/help.html#attention" target="_blank">关注本站</a>-->
+<!--                    <a href="javascript:void(0)" class="collection">收藏本站</a>-->
+<!--                    <a href="http://www.uw3c.com/help.html#disclaimer" target="_blank">免责声明</a>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="clear"></div>
+            <div class="titwrap">
+                <h1>jQuery中ready与load事件的区别</h1>
+                <p>阅读：25465&nbsp;次 &nbsp;&nbsp;编辑日期：2013-11-29</p>
+            </div>
+            <!--            <script type="text/javascript">-->
+<!--                /*为了保证用户体验及收益，图片大小不得小于：200*180*/-->
+<!--                /* 创建于 2015-12-18*/-->
+<!--                var cpro_id = "u2456030";-->
+<!--            </script>-->
+<!--            <script src="http://cpro.baidustatic.com/cpro/ui/i.js" type="text/javascript"></script>--><h2 class="ptit">目录：</h2>
+<div class="wordwrapa">
+    <ul class="indexul">
+        <li class="index indexa"><span>1</span><a href="http://www.uw3c.com/jsviews/js15.html#a">ready与load谁先执行</a></li>
+        <li class="index indexa"><span>2</span><a href="http://www.uw3c.com/jsviews/js15.html#b">DOM文档加载的步骤</a></li>
+        <li class="index indexa"><span>3</span><a href="http://www.uw3c.com/jsviews/js15.html#c">ready事件</a></li>
+        <li class="index indexa"><span>4</span><a href="http://www.uw3c.com/jsviews/js15.html#d">load事件</a></li>
+        <li class="index indexa"><span>5</span><a href="http://www.uw3c.com/jsviews/js15.html#e">总结</a></li>
+        <div class="clear"></div>
+    </ul>
+</div>
+<h2 class="ptit">概述：</h2>
+<div class="wordwrap">
+    大家在工作中用jQuery的时候一定会在使用之前这样：
+</div>
+<div><div id="highlighter_610277" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="http://www.uw3c.com/jsviews/js15.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js comments">//document ready</code></div><div class="line number2 index1 alt1"><code class="js plain">$(document).ready(</code><code class="js keyword">function</code><code class="js plain">(){</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">...code...</code></div><div class="line number4 index3 alt1"><code class="js plain">})</code></div><div class="line number5 index4 alt2"><code class="js comments">//document ready 简写</code></div><div class="line number6 index5 alt1"><code class="js plain">$(</code><code class="js keyword">function</code><code class="js plain">(){</code></div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">...code...</code></div><div class="line number8 index7 alt1"><code class="js plain">})</code></div></div></td></tr></tbody></table></div></div>
+<div class="wordwrap">
+    有些时候也会这么写：
+</div>
+<div><div id="highlighter_663354" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="http://www.uw3c.com/jsviews/js15.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js comments">//document load</code></div><div class="line number2 index1 alt1"><code class="js plain">$(document).load(</code><code class="js keyword">function</code><code class="js plain">(){</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">...code...</code></div><div class="line number4 index3 alt1"><code class="js plain">})</code></div></div></td></tr></tbody></table></div></div>
+<div class="wordwrap">
+    一个是ready一个是load，这两个到底有什么区别呢？今天我们来聊一聊。
+</div>
+<h2 class="ptit" id="a">ready与load谁先执行：</h2>
+<div class="wordwrap">
+    大家在面试的过程中，经常会被问到一个问题：ready与load那一个先执行，那一个后执行？答案是ready先执行，load后执行。
+</div>
+<h2 class="ptit" id="b">DOM文档加载的步骤：</h2>
+<div class="wordwrap">
+    要想理解为什么ready先执行，load后执行就要先聊一下DOM文档加载的步骤：<br>
+</div>
+<div><div id="highlighter_285349" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="http://www.uw3c.com/jsviews/js15.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">(1) 解析HTML结构。</code></div><div class="line number2 index1 alt1"><code class="js plain">(2) 加载外部脚本和样式表文件。</code></div><div class="line number3 index2 alt2"><code class="js plain">(3) 解析并执行脚本代码。</code></div><div class="line number4 index3 alt1"><code class="js plain">(4) 构造HTML DOM模型。</code><code class="js comments">//ready</code></div><div class="line number5 index4 alt2"><code class="js plain">(5) 加载图片等外部文件。</code></div><div class="line number6 index5 alt1"><code class="js plain">(6) 页面加载完毕。</code><code class="js comments">//load</code></div></div></td></tr></tbody></table></div></div>
+<div class="wordwrap">
+    从上面的描述中大家应该已经理解了吧，ready在第（4）步完成之后就执行了。但是load要在第（6）步完成之后才执行。
+</div>
+<h2 class="ptit" id="c">ready事件：</h2>
+<div class="wordwrap">
+    ready事件在DOM结构绘制完成之后就绘执行。这样能确保就算有大量的媒体文件没加载出来，JS代码一样可以执行。
+</div>
+<h2 class="ptit" id="d">load事件：</h2>
+<div class="wordwrap">
+    load事件必须等到网页中所有内容全部加载完毕之后才被执行。如果一个网页中有大量的图片的话，则就会出现这种情况：网页文档已经呈现出来，但由于网页数据还没有完全加载完毕，导致load事件不能够即时被触发。
+</div>
+<h2 class="ptit" id="e">总结：</h2>
+<div class="wordwrap">
+    相信大家已经了解了ready与load的区别，其实如果页面中要是没有图片之类的媒体文件的话ready与load是差不多的，但是页面中有文件就不一样了，所以还是推荐大家在工作中用ready。
+</div>
+<div class="nextwrap"><a class="firstarticle" href="http://www.uw3c.com/jsviews/js14.html" target="_blank">
+                 上一篇：JS中的eval()函数
+            </a><a class="nextarticle" href="http://www.uw3c.com/jsviews/js16.html" target="_blank">
+                 下一篇：chrome不能获取图片高度
+            </a></div><div class="titwrap">
+<!--    <script type="text/javascript">-->
+<!--        /*728*90 创建于 2016/12/4*/-->
+<!--        var cpro_id = "u2836622";-->
+<!--    </script>-->
+<!--    <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>-->
+</div>
+<div class="sharewrap" style="margin-top: 30px;">
+    <div class="leftpart" style="border-bottom:none; border-left:none;">
+        <span style="float:left;line-height: 25px;">将本篇文章分享到：</span>
+        <!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+    <a class="bds_tsina" title="分享到新浪微博" href="http://www.uw3c.com/jsviews/js15.html#">新浪微博</a>
+    <a class="bds_renren" title="分享到人人网" href="http://www.uw3c.com/jsviews/js15.html#">人人网</a>
+    <a class="bds_tqq" title="分享到腾讯微博" href="http://www.uw3c.com/jsviews/js15.html#">腾讯微博</a>
+    <a class="bds_qzone" title="分享到QQ空间" href="http://www.uw3c.com/jsviews/js15.html#">QQ空间</a>
+    <span class="bds_more">更多</span>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=0" src="./jQuery中ready与load事件的区别_files/bds_s_v2.js.下载"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<script type="text/javascript">
+    //在这里定义bds_config
+    var bds_config = {
+        'bdText':'Hi,我分享了一篇JS的文章《jQuery中ready与load事件的区别》，来自UW3C-前端技术分享总结,建站流程经验分享,网站安全与推广切身体验,大家来看看',
+        'bdPic':'http://www.pplovejj.com/images/header_footer/weibo.jpg'
+    };
+    document.getElementById('bdshell_js').src = "http://share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+<!-- Baidu Button END -->    </div>
+    <div class="rightpart">
+        <a href="http://www.uw3c.com/help.html#mail" target="_blank" style="color:#AE6969;">投稿本站</a>
+        <a href="http://www.uw3c.com/help.html#attention" target="_blank">关注本站</a>
+        <a href="javascript:void(0)" class="collection">收藏本站</a>
+        <a href="http://www.uw3c.com/help.html#disclaimer" target="_blank">免责声明</a>
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+<div class="hostrecom">
+    <div class="hosttit">站长推荐</div>
+    <div class="hostrecomword">
+        <div class="recommend">
+        <a class="wordtit" href="http://www.uw3c.com/cssviews/css33.html" target="_blank">如何用CSS制作闪烁的箭头</a>
+        <a class="wordcon addcssbg" href="http://www.uw3c.com/cssviews/css33.html" target="_blank"><span>[CSS]&nbsp;[内容概述]</span> 随着移动端的普及，CSS3的动画效果用的越来越多，甚至很多时候PC端也在用，因为可以省去繁杂的JS，简单的CSS就能解决，今天我没来说一说如何用CSS制作闪动的箭头。</a>
+    </div><div class="recommend">
+        <a class="wordtit" href="http://www.uw3c.com/jsviews/js109.html" target="_blank">gulp与Grunt的区别</a>
+        <a class="wordcon addjsbg" href="http://www.uw3c.com/jsviews/js109.html" target="_blank"><span>[JS]&nbsp;[内容概述]</span>因为node的出现，自动化构建越来越流行，要说到前端自动化构建，那必须会想到Grunt和gulp，恰巧最近这两个我都用过，那么咱们说说这两个的区别。</a>
+    </div><div class="recommend">
+        <a class="wordtit" href="http://www.uw3c.com/phpviews/php13.html" target="_blank">SQL中的TOP子句</a>
+        <a class="wordcon addphpbg" href="http://www.uw3c.com/phpviews/php13.html" target="_blank"><span>[PHP]&nbsp;[内容概述]</span>最近我发现了一个超级有用的SQL子句，当我们要取数据中的前5条怎么办？比较方便的方法就是TOP语句。今天我们来说一说。</a>
+    </div><div class="recommend">
+        <a class="wordtit" href="http://www.uw3c.com/seoviews/seo28.html" target="_blank">应该如何交换链接</a>
+        <a class="wordcon addseobg" href="http://www.uw3c.com/seoviews/seo28.html" target="_blank"><span>[SEO]&nbsp;[内容概述]</span>头两天有一个同事自己在github上面建了个技术博客，要跟我交换链接，虽然关系不错，但是在我了解了一下他博客的情况之后，还是委婉的拒绝了，今天我们就来说说应该如何交换链接。</a>
+    </div><div class="recommend" style="margin-right: 0px;">
+        <a class="wordtit" href="http://www.uw3c.com/swiftviews/swift04.html" target="_blank">Swift如何取消tableviewcell高亮</a>
+        <a class="wordcon" href="http://www.uw3c.com/swiftviews/swift04.html" target="_blank"><span>[Swift]&nbsp;[内容概述]</span>在制作APP的过程中，使用 tableviewcell是经常的事，让选中的cell高亮也是经常的事，那么如何让 tableviewcell取消高亮呢？今天我们来说说。</a>
+    </div>        <div class="clear"></div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $(".gotolink").click(function(){
+            var thislink = $(this).attr("href");
+            var datalink = thislink.substring(8);
+            var dataarry = datalink.split("/");
+            var thistit = dataarry[2];
+            var thiscode = thistit.substring(0,thistit.length-5);
+            $.ajax({
+                type:"POST",
+                url:"../template/alsoread.php",
+                data:{thiscode:thiscode,formcode:'js15'},
+            });
+        })
+    })
+</script>    <div id="footerwrap">
+        <div class="footer">
+            <h3 style="color:#fff;">UW3C - Web技术分享，前端、CSS、JS、PHP、SEO、建站流程、网站安全经验总结分享</h3>
+            当您使用UW3C.com的时候，代表您已接受了本站的<a href="http://www.uw3c.com/help.html#use" target="_blank">使用条款</a>和<a href="http://www.uw3c.com/help.html#disclaimer" target="_blank">免责声明</a>。<br>
+            UW3C.com不保证内容的正确性，通过使用本站内容随之而来的风险与本站无关。<br>
+            UW3C.com是个人网站，本站内容仅供学习交流之用，将不对任何资源负法律责任，提供的内容仅用于参考。<br>
+            UW3C.com保留一切权利 &nbsp;| &nbsp;<a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备13017284号-2</a>&nbsp;| &nbsp;
+            <script type="text/javascript">
+                var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4090f1346a91b036ab2839507b1c022e' type='text/javascript'%3E%3C/script%3E"));
+            </script><script src="./jQuery中ready与load事件的区别_files/h.js.下载" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=4090f1346a91b036ab2839507b1c022e" target="_blank"><img border="0" src="./jQuery中ready与load事件的区别_files/21.gif" width="20" height="20"></a>
+        </div>
+    </div>
+    <div id="backtop" style="display: block;">
+        <a href="http://www.uw3c.com/jsviews/js15.html#" onfocus="this.blur()"><img src="./jQuery中ready与load事件的区别_files/backtop.gif" alt="top" title="top" border="0"></a>
+    </div>
+</div><script src="./jQuery中ready与load事件的区别_files/pe.js.下载"></script><div style="display: none;"><iframe width="1" height="1" src="javascript:document.write(&#39;&#39;);" id="UploadContentIframe" name="UploadContentIframe" src="./jQuery中ready与load事件的区别_files/saved_resource(2).html"></iframe></div><div style="display: none;"><form id="UploadContentForm" name="UploadContentForm" action="http://dsp.brand.sogou.com/log_print" target="UploadContentIframe" enctype="application/x-www-form-urlencoded" method="POST"><input type="text" name="url" value="http://www.uw3c.com/jsviews/js15.html"><textarea name="title">jQuery中ready与load事件的区别</textarea><textarea name="mypos">UW3C首页 &gt; JS &gt; jQuery中ready与load事件的区别</textarea><textarea name="metakeywords">JavaScript代码分享，JavaScript经验总结</textarea><textarea name="metadescription">大家在面试的过程中，经常会被问到一个问题：ready与load那一个先执行，那一个后执行？这两个有什么区别？今天我们来探索一下。</textarea><input type="text" name="lastmodified" value="09/21/2017 11:18:10"><input type="text" name="charset" value="UTF-8"><textarea name="maincontent"></textarea></form></div>
+<script type="text/javascript">
+    $(function(){
+        var thisId = "titjs" ;
+        $("#" + thisId).addClass("sel");
+
+        var $this = $('.collection');
+        if ($this.length > 0) {
+            $this.click(function() {
+                if ($.browser.mozilla) {
+                    window.sidebar.addPanel('UW3C.COM - Web技术分享', 'http://www.uw3c.com', "");
+                } else if($.browser.msie) {
+                    window.external.addFavorite('http://www.uw3c.com', 'UW3C.COM - Web技术分享');
+                }else{
+                    alert('您的浏览器不支持点击收藏，请按快捷键Ctrl+d收藏UW3C.COM - Web技术分享');
+                }
+            });
+        }
+    })
+    $(function(){
+        var on_scroll = function(){
+            if($(window).scrollTop() > 700){
+                $("#backtop").fadeIn();
+            }else{
+                $("#backtop").fadeOut();
+            }
+        }
+        $(window).scroll(on_scroll);
+
+    })
+</script>
+<script>
+    //百度更新自动推送
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1"></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    //在这里定义bds_config
+    var bds_config = {
+        'bdText':'Hi,我分享了一篇关于"JS"的文章《jQuery中ready与load事件的区别》，来自UW3C-Web技术分享，快来看看吧~ 如果你也有自己的Web经验的话，那么就写成文章来UW3C.COM赚取稿费吧！',
+        'bdPic':'http://www.uw3c.com/images/slideshow/weibonew.jpg'
+    };
+    document.getElementById('bdshell_js').src = "http://share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+<!-- Baidu Button END -->
+<script language="javascript" type="text/javascript">
+    var screen_width = document.documentElement.clientWidth > 1200 ? true : false ;
+    //screen_wide = false;
+    (function(){
+        var head = document.getElementsByTagName('HEAD')[0];
+        var style2 = document.createElement('link');
+        if(screen_width){
+            style2.href ='../css/styles/bigshCoreDefault.css';
+        }else{
+            style2.href ='../css/styles/shCoreDefault.css';
+        }
+        style2.rel = 'stylesheet';
+        style2.type = 'text/css';head.appendChild(style2);
+    })()
+</script>
+<!--<link type="text/css" rel="stylesheet" href="../css/styles/shCoreDefault.css"/>-->
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+<div style="position: static; display: none; width: 0px; height: 0px; border: none; padding: 0px; margin: 0px;"><div id="trans-tooltip"><div id="tip-left-top" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-left-top.png&quot;);"></div><div id="tip-top" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-top.png&quot;) repeat-x;"></div><div id="tip-right-top" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-right-top.png&quot;);"></div><div id="tip-right" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-right.png&quot;) repeat-y;"></div><div id="tip-right-bottom" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-right-bottom.png&quot;);"></div><div id="tip-bottom" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-bottom.png&quot;) repeat-x;"></div><div id="tip-left-bottom" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-left-bottom.png&quot;);"></div><div id="tip-left" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-left.png&quot;);"></div><div id="trans-content"></div></div><div id="tip-arrow-bottom" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-arrow-bottom.png&quot;);"></div><div id="tip-arrow-top" style="background: url(&quot;chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-arrow-top.png&quot;);"></div></div></body></html>
