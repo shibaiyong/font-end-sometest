@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数字千分位格式化</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    var num=12345678901234;
+    var str='lsddjfslskdj'
+    function toTousand(num){
+        var reg=/[a-zA-Z]/;
+        var numStr=num.toString();
+        var numArr=numStr.split('');
+        var bit=0;
+        if(reg.test(num)){
+            alert('穿入数据格式错误')
+            return;
+        }
+        for(var i=numArr.length;i>=0;i--){
+            bit++;
+            if(bit%3==0&&i!=0){
+                numArr.splice(i-1,0,",");
+            }
+        }
+        var numT=numArr.join('');
+        return numT;
+    }
+    var n=toTousand(num);
+    console.log(n);
+</script>
