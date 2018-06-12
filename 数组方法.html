@@ -90,4 +90,41 @@
 	console.log(container);
 	var hrr=jrr.slice();
 	console.log('slice '+hrr);//数组深拷贝；
+
+	//reduce()方法求和
+
+	// 这两个方法都接收两个参数：一个在每一项上调用的函数和（可选的）作为归并基础的初始值。
+	// 传给 reduce()和 reduceRight()的函数接收 4 个参数：前一个值、当前值、项的索引和数组对象。
+	// 这个函数返回的任何值都会作为第一个参数自动传给下一项。第一次迭代发生在数组的第二项上，
+	// 因此第一个参数是数组的第一项，第二个参数就是数组的第二项。
+
+	var values = [1,2,3,4,5];
+	var sum = values.reduce(function(prev,curr,index,array){
+		return prev+curr;
+	},0)
+
+	//reduce()方法阶乘
+
+	var calcu = values.reduce(function(prev,curr,index,array){
+		return prev*curr
+	},1)
+
+	//扩展:递归求和，求阶乘；
+	function summ(num){
+		if(num==0){
+			return 0;
+		}
+		return num+summ(num-1);
+	}
+
+	function calcuu(num){
+		if(num==1){
+			return 1;
+		}
+		return num*calcuu(num-1);
+	}
+	var sum1=summ(5);
+	var calcu1=calcuu(5);
+	console.log('reduce 求和' + sum1);
+	console.log('reduce 阶乘' + calcu1);
 </script>
