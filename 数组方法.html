@@ -71,22 +71,24 @@
 	})
 	console.log('map方法  '+frr);
 	//统计字符串的个数;
+	var nrr=[1,1,1,2,2,2,4,56,323,3,8,3,2,6,6,6];
 	var jrr=[1,1,1,2,2,2,4,56,323,3,8,3,2,6,6,6];
 	var count=0;
 	var container={};
-	for(var i=0;i<jrr.length;i++){
+	for(var i=0;i<nrr.length;i++){
 		count=0;
-		for(var j=0;j<jrr.length;j++){
-			if(jrr[i]==jrr[j]){
+		for(var j=0;j<nrr.length;j++){
+			if(jrr[i]==nrr[j]){
 				if(i>j){	
 					break;
 				}else{
-					count++;
-					container[jrr[i]]=count;
+					count += jrr[i];
+					container[nrr[i]]=count;
 				}
 			}
 		}	
 	}
+	console.log("合并求和"+container);
 	console.log(container);
 	var hrr=jrr.slice();
 	console.log('slice '+hrr);//数组深拷贝；
