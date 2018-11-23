@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+</head>
+<body>
+
+    <select class="oneregion">
+        <option value="">地区1</option>
+        <option value="11">11</option>
+        <option value="22">22</option>
+        <option value="33">33</option>
+    </select>
+
+    <select class="tworegion"> 
+        <option value="">地区2</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+
+    <input class='check' type='checkbox' value="any"/>
+
+    <button class='ve'>点击验证</button>
+    
+</body>
+</html>
+
+<script>
+
+$('.ve').click(function(){
+    var oneval = $('.oneregion').val();
+    var twoval = $('.tworegion').val();
+    var checkval = $('.check:checked').val();
+    console.log(oneval);//''
+    console.log(twoval);//''
+    console.log(checkval);
+    //1都不选的情况
+    if(!oneval&&!twoval&&!checkval){
+        alert('不能为空，且二选一');
+        //return false;
+    }
+    //2两者都选的情况
+    else if((oneval||twoval)&&checkval){
+        alert('不能都选，且二选一');
+        //可以做一些清空操作
+        //return false;
+    }else{
+        alert('通过')
+    }
+    
+})
+
+
+
+</script>

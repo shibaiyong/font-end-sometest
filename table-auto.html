@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>subone</title>
+		
+	<style>
+	body{
+		background:red;
+	}
+		.big{
+			width:600px;
+			position: relative;
+		}
+		.wrapper{
+			width:600px;
+			overflow-x:auto;
+			
+		}
+		table{
+			border: 1px solid #ccc;
+			width: 800px;
+			border-collapse: collapse;
+		}
+		table td,table th{
+			border: 1px solid #ccc;
+			width: 200px;
+			text-align: center;
+			background: white;
+		}
+	</style>
+	
+	</head>
+	<body>
+		<div class="big">
+		<div class="wrapper">
+		<table>
+			<thead>	
+				<th class="fir">1-1</th>
+				<th>1-2</th>
+				<th>1-3</th>
+				<th class="las">1-4</th>
+			</thead>
+			<tr>
+				<td class="fir">2-1</td>
+				<td>2-2</td>
+				<td>2-3</td>
+				<td class="las">2-4</td>
+			</tr>
+			<tr>
+				<td class="fir">3-1</td>
+				<td>3-2</td>
+				<td>3-3</td>
+				<td class="las">3-4</td>
+			</tr>
+			<tr>
+				<td class="fir">4-1</td>
+				<td>4-2</td>
+				<td>4-3</td>
+				<td class="las">4-4</td>
+			</tr>
+		</table>
+		</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="jquery.min.js" ></script>
+<script>
+		var arrf=[];
+		var arrl=[];
+		$('table .fir').each(function(){		
+			var t=$(this).offset().top;
+			arrf.push(t);
+		})
+		$('table .las').each(function(){
+			var t=$(this).offset().top;
+			arrl.push(t);
+		})
+		$('.wrapper').scroll(function(){
+			$('table .fir').each(function(index,items){
+				var tf=arrf[index]-8;			
+				$('table').css('padding',"0px 200px");
+				$(this).css({position:'absolute',top:tf+'px',left:0+'px'});
+			})
+			$('table .las').each(function(index,items){
+				var tl=arrl[index]-8;
+				$('table').css('padding',"0px 200px");
+				$(this).css({position:'absolute',top:tl+'px',right:0+'px'});			
+			})
+		})
+</script>
+<script>
+			window.location.href="https://www.baidu.com"
+	</script>
