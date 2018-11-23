@@ -23,7 +23,7 @@
 				margin: 10px 0 0 20px;
 				position:absolute;
 				top:10px;left:20px;
-			
+            }
 		</style>
 	</head>
 	<body>
@@ -37,7 +37,15 @@
 <script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	var height=$('.farther').offset({left:80});
-	console.log(height)
+	console.log(height);
 	var height1=$('.farther .child').position().left;
-	console.log(height1)
+	console.log(height1);
+	var innerHeight = window.innerHeight;
+	// FF/CH 支持，获取窗口尺寸。
+	var deleHeight = document.documentElement.clientHeight;  
+	// IE/CH支持
+	var bodyClient = document.body.client;
+
+	// 通过body元素获取内容的尺寸
+	console.log(innerHeight,deleHeight);
 </script>

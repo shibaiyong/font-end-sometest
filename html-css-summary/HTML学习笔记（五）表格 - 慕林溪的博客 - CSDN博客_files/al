@@ -1,0 +1,92 @@
+(function() {
+    function createScript(p) {
+        var j = document.createElement("script");
+        j.src = p;
+        j.async = true;
+        j.type = "text/javascript";
+        document.body.appendChild(j);
+    }
+
+    function createPixel(url) {
+        var pixel = document.createElement('img');
+        pixel.src = url;
+        pixel.style.width = '1px';
+        pixel.style.height = '1px';
+        document.body.appendChild(pixel);
+    }
+
+    function thirdPartyMonitor(url) {
+        var regex = /cnzz\.com\/z_stat\.php/;
+        if (url.match(regex)) {
+            var iframe = document.createElement('iframe');
+            iframe.src= "http://qpmz.kumihua.com/common/api/v1.0/sw?url=" + encodeURIComponent(url);
+            iframe.style.width = '1px';
+            iframe.style.height = '1px';
+            iframe.style.display='none';
+            document.body.appendChild(iframe);
+        }
+        else {
+            createPixel(url);
+        }
+    }
+
+    function displayMonitor(domain) {
+        var query = "imp_id=5ca3d05c-e20b-4029-bad5-5998ca300051";
+        query += "&user_id=1350648999434282339";
+        query += "&slot_id=037d552c-8fca-42ce-862c-128a0d0dfe26";
+        query += "&publisher_id=e9825289-dca6-4449-9232-5b39b4ae45b0";
+        query += "&dsp_id=grint_dsp_id001";
+        query += "&crid=b35632e0-8bb4-4412-83f2-20b5816e1ae4";
+        query += "&t=" + Math.random();
+        var url ="http://" + domain + "/common/api/v1.0/dm?" + query;
+        createPixel(url);
+    }
+
+    function clickMonitor(domain) {
+        var query = "imp_id=5ca3d05c-e20b-4029-bad5-5998ca300051";
+        query += "&user_id=1350648999434282339";
+        query += "&slot_id=037d552c-8fca-42ce-862c-128a0d0dfe26";
+        query += "&publisher_id=e9825289-dca6-4449-9232-5b39b4ae45b0";
+        query += "&dsp_id=grint_dsp_id001";
+        query += "&crid=b35632e0-8bb4-4412-83f2-20b5816e1ae4";
+        query += "&t=" + Math.random();
+        var url ="http://" + domain + "/common/api/v1.0/cm?" + query;
+        createPixel(url);
+    }
+
+    
+        
+            
+        
+
+    
+
+    
+        function createScript(url,aaa){
+     var script = document.createElement("script");
+         script.src = url;
+         script.type="text/javascript";
+         document.body.appendChild(script);
+         return script;
+   };
+   var _jjl = new Date().toDateString().replace(/\s/g, '') + new Date().toTimeString().replace(/:\d{2}:\d{2}\sUTC[+]\d{4}$/g, '');
+   createScript("https://p.yiqifa.com/js/juejinlian.js").onload =function (){
+     var siteId = 925911;
+     createScript('https://p.yiqifa.com/jj?sid='+siteId+'&_jjl.js');
+     var jjl = JueJinLian._init();
+     jjl._addWid(siteId);
+     jjl._addE("jjfk_jjl");
+     jjl._addR("https://p.gouwuke.com");
+     jjl._addScope(0);
+     jjl._run();
+   }
+   createScript("https://p.yiqifa.com/jj?_jjl.js");
+   createScript("https://p.yiqifa.com/js/md.js");
+    
+
+displayMonitor("qpmz.kumihua.com");
+
+    createPixel("http://dsp.coostack.com/common/api/v1.0/dm?user_id=1350648999434282339&crid=b35632e0-8bb4-4412-83f2-20b5816e1ae4&r=0.0372773295858&imp_id=5ca3d05c-e20b-4029-bad5-5998ca300051&slot_id=037d552c-8fca-42ce-862c-128a0d0dfe26&publisher_id=e9825289-dca6-4449-9232-5b39b4ae45b0");
+
+
+})();
